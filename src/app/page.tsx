@@ -1,19 +1,24 @@
 import { getPortfolio } from "@/lib/content";
+import { SiteHeader } from "@/components/site-header";
+import { SectionNavigation } from "@/components/section-navigation";
+import { ProfileSidebar } from "@/components/profile-sidebar";
+import { ReadmeSection } from "@/components/readme-section";
+import { PortfolioSections } from "@/components/portfolio-sections";
 
 export default async function Home() {
-  const { profile, currentExperience } = await getPortfolio();
+  const { profile, currentExperience, overview, technologies, experience, projects, recognition } = await getPortfolio();
+  const selectedTechnologies = profile.technologyIds.map((id) => technologies.find((technology) => technology.id === id)!);
   return (
-    <main
-      id="main-content"
-      tabIndex={-1}
-      className="mx-auto min-h-dvh w-full max-w-300 px-5 py-12 sm:px-8 sm:py-16"
-    >
-      <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-        {profile.name}
-      </h1>
-      <p className="mt-3 max-w-2xl text-base leading-7 text-muted">
-        {currentExperience.role} at {currentExperience.company}, based in {profile.location}.
-      </p>
-    </main>
+    <>
+      <SiteHeader profile={profile} />
+      <SectionNavigation projectCount={projects.length} />
+      <div className="page-container portfolio-layout">
+        <ProfileSidebar profile={profile} currentExperience={currentExperience} />
+        <main id="main-content" className="portfolio-content" tabIndex={-1}>
+          <ReadmeSection overview={overview} technologies={selectedTechnologies} />
+          <PortfolioSections experience={experience} projects={projects} recognition={recognition} />
+        </main>
+      </div>
+    </>
   );
 }

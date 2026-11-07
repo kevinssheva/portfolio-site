@@ -60,13 +60,30 @@ Acceptance: content changes require no component changes; drafts are excluded fr
 
 Implementation decisions: use the dependency-free `yaml` package with a small reader for the two metadata delimiter lines instead of gray-matter, whose legacy YAML dependency could not be fully installed from the offline cache. Keep Markdown rendering dependencies for Phase 3, where they are first used. Use `tsx` with Node's test runner rather than add a test framework. Reject invalid drafts rather than silently skip them. Draft preview is limited to development, and hidden entries remain hidden in preview.
 
-Work is on `feat/content-architecture`. The user will commit and push; no Phase 2 commit or push has been made by the agent. Phase 3 remains unstarted pending review. Content is fully loaded and validated now; the later UI phases will render the remaining sections.
+Work is on `feat/content-architecture`. The user committed and pushed Phase 2, then authorized Phase 3 on this branch. Content is fully loaded and validated; the later UI phases expand its presentation.
 
 ## Phase 3 — GitHub-inspired shell
 
 Implement header, native section links, profile, responsive two-column grid, sticky navigation/sidebar offsets, short-viewport fallback, and Markdown README styling.
 
 Acceptance: review desktop/mobile appearance, keyboard access, readable spacing, one document scrollbar, and access to all profile links.
+
+### Phase 3 checkpoint — 2026-11-07
+
+- [x] Add a GitHub-inspired header, icon navigation with four native anchors, and a real published-project count.
+- [x] Add the profile sidebar using validated identity/employment, a local image when configured, otherwise initials, and only configured contact/resume links.
+- [x] Add a responsive two-column grid with CSS sticky navigation, document scrolling, section anchor offsets, and profile stickiness from 1024px width and 800px height. Smaller viewports use normal profile scrolling.
+- [x] Render the README as safe server-side GitHub-flavored Markdown with reusable technology labels and restrained typography/borders.
+- [x] Give all four tabs real content targets using compact employer/project/recognition summaries. These are actual content, not empty placeholders; detailed layouts remain Phase 4.
+- [x] Keep page/components server-rendered. Native hash underlining is a progressive fallback; viewport scrollspy remains Phase 5.
+- [x] Pass lint, strict TypeScript, all 15 content tests, content validation, and production build via `npm run check`. The homepage remains statically prerendered.
+- [x] Check generated HTML for unique IDs, all anchor targets, one main and one h1, rendered Markdown, omitted unconfigured links, and no draft text in public HTML/client JavaScript.
+- [x] Obtain an independent read-only review: no actionable findings.
+- [ ] Verify rendered desktop/mobile appearance, keyboard interaction, anchor scrolling, horizontal overflow, and sticky behavior in a live browser.
+
+Browser verification limit: the local dev server cannot bind port 3000 (`EPERM`). The browser automation host is unavailable, and a native Safari fallback did not load the prepared static preview after interrupted UI control. A self-contained preview was generated from production HTML/CSS at `/private/tmp/portfolio-phase3-preview.html`; it was not successfully inspected. No screenshot or viewport-interaction verification is claimed. README.md includes local review steps.
+
+The user retains commit/push responsibility. No Phase 3 commit or push has been made by the agent. Phase 4 is not started.
 
 ## Phase 4 — Portfolio sections
 

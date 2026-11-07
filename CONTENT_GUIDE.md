@@ -1,6 +1,6 @@
 # Editing portfolio content
 
-Portfolio facts live in `src/content/`, separate from React components. Edit those files, run the checks, and commit the changes. The homepage currently shows the brief foundation introduction; later UI phases will render the full collection through the same content loader.
+Portfolio facts live in `src/content/`, separate from React components. Edit those files, run the checks, and commit the changes. The homepage now renders the profile, README, technologies, and compact Experience/Projects/Recognition sections. The full experience and project layouts arrive in Phase 4 through the same content loader.
 
 ## Where content lives
 
@@ -125,7 +125,7 @@ Supported optional metadata:
 
 Only `.md` files directly in this directory are loaded. No MDX or executable content is supported. Delete a file to remove a project, or change its publication status. Async Event Processor stays in draft until its details are verified. PalmVue contains only the supplied summary and Go tag, with no invented links.
 
-The current loader uses the dependency-free `yaml` package to parse YAML metadata, with a small delimiter reader. It does not evaluate JavaScript or compile MDX. Markdown rendering is added with the README UI in Phase 3.
+The current loader uses the dependency-free `yaml` package to parse YAML metadata, with a small delimiter reader. It does not evaluate JavaScript or compile MDX. The README uses server-side `react-markdown` with GitHub-flavored Markdown support. Raw HTML is omitted. Use `##` for the introductory heading and `###` for subsections; the profile already supplies the page's main heading.
 
 ## Drafts, hidden entries, and ordering
 
@@ -160,6 +160,8 @@ avatar: { src: "/images/avatar.jpg", alt: "Kevin Sebastian" },
 Configured assets must be real files inside `public`, including when reached through symlinks. Missing files, traversal paths, and directories fail validation. Omitted asset fields are valid.
 
 Edit the `links` object for GitHub and LinkedIn HTTP(S) URLs. The `email` field takes a plain email address, without `mailto:`. Profile and Contact will share this single object. Remove a field to remove its link.
+
+Without an avatar, the profile uses initials derived from the name. Missing resume and social fields produce no placeholder buttons. Section labels and shared interface copy can be edited in `site.ts`; section IDs are anchor contracts and should remain unchanged unless the corresponding rendering code is updated.
 
 ## Future engineering notes and project detail pages
 
