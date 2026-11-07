@@ -6,7 +6,7 @@ GitHub repository: [kevinssheva/portfolio-site](https://github.com/kevinssheva/p
 
 ## Current stage
 
-Phase 3 adds the GitHub-inspired header, native anchor navigation, responsive profile layout, and rendered Markdown README. Experience, Projects, and Recognition have compact content-backed sections so every tab has a real target. The detailed experience timeline and project cards arrive in Phase 4; viewport scrollspy arrives in Phase 5. See [the implementation plan](docs/implementation-plan.md).
+Phase 4 completes the content sections: the employer/contribution timeline, personal project cards, recognition, education, contact, and footer. The GitHub-inspired header, profile sidebar, README, and native anchor navigation remain server-rendered. Viewport scrollspy arrives in Phase 5. See [the implementation plan](docs/implementation-plan.md).
 
 ## Local setup
 
@@ -34,14 +34,15 @@ npm run build
 
 Production builds use Next.js's supported Webpack option. Turbopack's CSS processing requires local socket access that is blocked in the implementation environment; Webpack produces the static build without that requirement. Development uses Next.js's default bundler.
 
-Behavior tests cover real content loading, validation, sorting, drafts, and optional metadata using Node's built-in test runner. Browser tests for navigation arrive with the scrollspy phase. There are no static markup snapshot tests.
+Behavior tests cover real content loading, validation, sorting, drafts, date formatting, optional project/contact links, resume downloads, and rendering a newly discovered project file using Node's built-in test runner. Browser tests for navigation arrive with the scrollspy phase. There are no static markup snapshot tests.
 
 ## Structure
 
 - `src/app/`: Server Component layout and homepage, plus global design tokens.
-- `src/components/`: Server-rendered header, navigation, profile, README/Markdown, and compact content sections.
+- `src/components/`: Server-rendered header, navigation, profile, README/Markdown, experience, projects, recognition, education, contact, and footer. Technology tags and contact links are shared between their consumers.
 - `src/content/`: Typed structured data, Markdown overview, and personal project files.
 - `src/lib/content/`: Zod schemas, validation, filtering, sorting, and a server-only entry point for rendering.
+- `src/lib/format.ts`: Native month/year formatting in English with UTC dates.
 - `scripts/validate-content.ts`: Standalone content checks without starting Next.js.
 - `docs/implementation-plan.md`: Approved architecture, phase boundaries, and progress.
 
@@ -60,5 +61,7 @@ All initial content is temporary. See [CONTENT_GUIDE.md](CONTENT_GUIDE.md) for e
 Run `npm run dev` and open <http://localhost:3000>. Check a desktop viewport such as 1280×900, a short desktop viewport such as 1280×720, and mobile widths such as 390px and 320px. The profile is sticky from 1024px wide when the viewport is at least 800px tall; it scrolls normally on shorter screens. Mobile places the profile above the README and allows the navigation row to scroll horizontally.
 
 Use Tab to check skip navigation, links, and visible focus. Follow all four section links and confirm their headings stay below the sticky navigation. Hash-based underlining works without JavaScript; automatic active-tab updates during manual scrolling are Phase 5.
+
+Review the three emphasized engineering contributions and the compact product group. Confirm the personal project card shows only its configured metadata, and that Education and Contact remain in the same document without extra navigation tabs. Contact currently shows the supplied GitHub link; email, LinkedIn, and resume links appear only after configuration.
 
 The implementation environment cannot bind a preview port, and its browser controls did not produce a usable preview. The production build and generated HTML were checked, but desktop/mobile visuals, touch behavior, and scrolling still need local browser review.

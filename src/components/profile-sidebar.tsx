@@ -1,14 +1,10 @@
 import Image from "next/image";
 import { site } from "@/content/site";
 import type { Experience, Profile } from "@/lib/content";
-import { Icon, type IconName } from "./icon";
+import { Icon } from "./icon";
+import { ContactLinks } from "./contact-links";
 
 export function ProfileSidebar({ profile, currentExperience }: { profile: Profile; currentExperience: Experience }) {
-  const links = [
-    { label: site.githubLabel, href: profile.links.github, icon: "repository" },
-    { label: site.linkedinLabel, href: profile.links.linkedin, icon: "link" },
-    { label: site.emailLabel, href: profile.links.email ? `mailto:${profile.links.email}` : undefined, icon: "mail" },
-  ] satisfies { label: string; href: string | undefined; icon: IconName }[];
   const initials = profile.name.split(/\s+/).slice(0, 2).map((word) => word[0]).join("");
 
   return (
@@ -32,15 +28,7 @@ export function ProfileSidebar({ profile, currentExperience }: { profile: Profil
         </a>
       )}
       <p className="profile-location"><Icon name="location" size={16} /><span>{profile.location}</span></p>
-      {links.some((link) => link.href) && (
-        <ul className="profile-links" aria-label={site.profileLinksLabel}>
-          {links.map((link) => link.href && (
-            <li key={link.label}>
-              <a href={link.href}><Icon name={link.icon} size={16} /><span>{link.label}</span></a>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ContactLinks profile={profile} className="profile-links" />
     </aside>
   );
 }

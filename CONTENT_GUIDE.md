@@ -1,6 +1,6 @@
 # Editing portfolio content
 
-Portfolio facts live in `src/content/`, separate from React components. Edit those files, run the checks, and commit the changes. The homepage now renders the profile, README, technologies, and compact Experience/Projects/Recognition sections. The full experience and project layouts arrive in Phase 4 through the same content loader.
+Portfolio facts live in `src/content/`, separate from React components. Edit those files, run the checks, and commit the changes. The homepage renders the profile, README, technologies, grouped experience timeline, personal project cards, recognition, education, contact, and footer through the validated content loader.
 
 ## Where content lives
 
@@ -71,7 +71,7 @@ Add an object to a group's `contributions` array:
 }
 ```
 
-`description`, `featured`, and `metrics` are optional. `featured` defaults to false and controls emphasis without overriding display order. Compact product contributions can contain only the ID, title, order, and status. IDs must be unique within their group.
+`description`, `featured`, and `metrics` are optional. `featured` defaults to false and controls emphasis without overriding display order. Featured contributions use a stronger heading and blue rule; supporting contributions stay compact. Groups with `category: "product"` use a compact list that can contain only the ID, title, order, and status. IDs must be unique within their group.
 
 Delete a contribution object to remove it entirely, or use `hidden` to keep it in source without displaying it. Edit a title or description directly; no component change is needed.
 
@@ -159,7 +159,7 @@ avatar: { src: "/images/avatar.jpg", alt: "Kevin Sebastian" },
 
 Configured assets must be real files inside `public`, including when reached through symlinks. Missing files, traversal paths, and directories fail validation. Omitted asset fields are valid.
 
-Edit the `links` object for GitHub and LinkedIn HTTP(S) URLs. The `email` field takes a plain email address, without `mailto:`. Profile and Contact will share this single object. Remove a field to remove its link.
+Edit the `links` object for GitHub and LinkedIn HTTP(S) URLs. The `email` field takes a plain email address, without `mailto:`. Profile and Contact share this single object and the same link renderer. Remove a field to remove its link. Contact includes the configured resume as a download; it disappears entirely if no contact destinations or resume are configured.
 
 Without an avatar, the profile uses initials derived from the name. Missing resume and social fields produce no placeholder buttons. Section labels and shared interface copy can be edited in `site.ts`; section IDs are anchor contracts and should remain unchanged unless the corresponding rendering code is updated.
 

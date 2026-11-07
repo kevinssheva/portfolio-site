@@ -83,13 +83,27 @@ Acceptance: review desktop/mobile appearance, keyboard access, readable spacing,
 
 Browser verification limit: the local dev server cannot bind port 3000 (`EPERM`). The browser automation host is unavailable, and a native Safari fallback did not load the prepared static preview after interrupted UI control. A self-contained preview was generated from production HTML/CSS at `/private/tmp/portfolio-phase3-preview.html`; it was not successfully inspected. No screenshot or viewport-interaction verification is claimed. README.md includes local review steps.
 
-The user retains commit/push responsibility. No Phase 3 commit or push has been made by the agent. Phase 4 is not started.
+The user committed and pushed Phase 3, then authorized Phase 4 on the same branch. Commits and pushes remain with the user.
 
 ## Phase 4 — Portfolio sections
 
 Render the employer timeline and contribution groups, emphasize Kubernetes Migration/OpenTelemetry/Gateway work, group product contributions compactly, and add personal project cards, recognition, education, contact, and footer from content.
 
 Acceptance: all supplied content renders with the agreed hierarchy; absent URLs do not create links; personal project cards contain no internal professional work.
+
+### Phase 4 checkpoint — 2026-11-07
+
+- [x] Replace compact preview sections with an employer timeline, connecting lines and markers, role/date/location metadata, contribution groups, and three featured engineering contributions. Keep supporting improvements compact and product initiatives within their one category.
+- [x] Add a responsive repository-style personal project grid driven by published content. Render reusable technology tags, the editorial featured flag, and only configured repository/demo/detail links. No fabricated repository URLs or statistics.
+- [x] Complete dated recognition with the supplied award wording, compact education with graduation/GPA, shared profile/contact links and optional resume download, and a minimal footer.
+- [x] Keep all editable copy in content files and all sections as Server Components. Add no dependencies, Client Components, data fetching, or forms.
+- [x] Use native English month/year formatting with an explicit UTC timezone and semantic time elements.
+- [x] Pass `npm run check`: lint, strict TypeScript, 19 tests, content validation, and static production build. New checks cover date formatting, missing optional project/contact metadata, configured destinations/download behavior, and new Markdown project file → loaded content → rendered card.
+- [x] Inspect generated HTML for all six sections and four primary navigation anchors, two employer entries, three featured contributions, one personal project card, dates/GPA/award wording, and footer. Verify unique IDs, working internal targets, absence of unavailable links, and no draft text in HTML or client JavaScript.
+- [x] Obtain an independent read-only review: no actionable findings.
+- [ ] Confirm live desktop/mobile visuals, keyboard interaction, overflow, and scrolling locally; existing preview/browser restrictions still apply.
+
+All professional and personal content remains file-based. Provisional metrics and Async Event Processor stay draft. Email, LinkedIn, avatar, and resume have not been invented. Phase 5 scrollspy has not started. Changes remain uncommitted on `feat/content-architecture` for the user to review, commit, and push.
 
 ## Phase 5 — Navigation and polish
 

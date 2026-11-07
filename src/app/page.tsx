@@ -3,10 +3,15 @@ import { SiteHeader } from "@/components/site-header";
 import { SectionNavigation } from "@/components/section-navigation";
 import { ProfileSidebar } from "@/components/profile-sidebar";
 import { ReadmeSection } from "@/components/readme-section";
-import { PortfolioSections } from "@/components/portfolio-sections";
+import { ExperienceTimeline } from "@/components/experience-timeline";
+import { ProjectsSection } from "@/components/project-card";
+import { RecognitionSection } from "@/components/recognition-section";
+import { EducationSection } from "@/components/education-section";
+import { ContactSection } from "@/components/contact-section";
+import { Footer } from "@/components/footer";
 
 export default async function Home() {
-  const { profile, currentExperience, overview, technologies, experience, projects, recognition } = await getPortfolio();
+  const { profile, currentExperience, overview, technologies, experience, projects, recognition, education } = await getPortfolio();
   const selectedTechnologies = profile.technologyIds.map((id) => technologies.find((technology) => technology.id === id)!);
   return (
     <>
@@ -16,9 +21,14 @@ export default async function Home() {
         <ProfileSidebar profile={profile} currentExperience={currentExperience} />
         <main id="main-content" className="portfolio-content" tabIndex={-1}>
           <ReadmeSection overview={overview} technologies={selectedTechnologies} />
-          <PortfolioSections experience={experience} projects={projects} recognition={recognition} />
+          <ExperienceTimeline experience={experience} />
+          <ProjectsSection projects={projects} technologies={technologies} />
+          <RecognitionSection recognition={recognition} />
+          <EducationSection education={education} />
+          <ContactSection profile={profile} />
         </main>
       </div>
+      <Footer name={profile.name} />
     </>
   );
 }

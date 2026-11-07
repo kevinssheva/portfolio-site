@@ -257,16 +257,69 @@ body:has(#recognition:target) .section-link[href="#recognition"]::after {
 .technology-list { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; }
 .technology-list li { padding: 0.25rem 0.5rem; border: 1px solid var(--border); border-radius: 0.375rem; color: var(--muted); font-family: var(--font-mono); font-size: 0.75rem; }
 
-.summary-section { margin-top: 2.5rem; }
+.content-section { margin-top: 2.5rem; }
 .section-heading { margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); font-size: 1.125rem; font-weight: 600; letter-spacing: -0.015em; }
-.summary-list { list-style: none; }
-.summary-list > li { display: flex; align-items: start; gap: 0.875rem; padding-block: 1rem; }
-.summary-list > li + li { border-top: 1px solid var(--border); }
-.summary-list > li > svg { flex-shrink: 0; margin-top: 0.25rem; color: var(--muted); }
-.summary-list > li > div { min-width: 0; }
-.summary-list h3 { font-size: 1rem; font-weight: 600; line-height: 1.5; }
-.summary-list p { margin-top: 0.5rem; font-size: 0.9375rem; line-height: 1.7; }
-.summary-list .summary-meta { margin-top: 0.25rem; color: var(--muted); font-size: 0.875rem; }
+
+.experience-timeline { list-style: none; }
+.experience-entry { position: relative; padding: 0.5rem 0 2.5rem 2.5rem; }
+.experience-entry:last-child { padding-bottom: 0; }
+.experience-entry:not(:last-child)::before { position: absolute; top: 2rem; bottom: -0.5rem; left: 0.6875rem; border-left: 1px solid var(--border); content: ""; }
+.timeline-marker { position: absolute; top: 0.5rem; left: 0; display: grid; width: 1.5rem; height: 1.5rem; place-items: center; border: 1px solid var(--border); border-radius: 50%; background: var(--surface); color: var(--muted); }
+.experience-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.5rem 1rem; }
+.experience-header h3 { font-size: 1.125rem; font-weight: 600; line-height: 1.5; }
+.experience-role { margin-top: 0.25rem; font-size: 0.9375rem; }
+.experience-dates, .experience-location { color: var(--muted); font-size: 0.8125rem; line-height: 1.75; }
+.experience-location { margin-top: 0.375rem; }
+.contribution-group { margin-top: 1.5rem; }
+.contribution-group h4 { color: var(--muted); font-size: 0.8125rem; font-weight: 600; line-height: 1.6; }
+.contribution-list { display: grid; gap: 0.875rem; margin-top: 0.75rem; list-style: none; }
+.contribution { min-width: 0; padding-left: 0.875rem; border-left: 2px solid var(--border); }
+.contribution h5 { font-size: 0.875rem; font-weight: 500; line-height: 1.6; }
+.contribution p { margin-top: 0.25rem; color: var(--muted); font-size: 0.875rem; line-height: 1.7; }
+.contribution-featured { border-color: var(--accent); }
+.contribution-featured h5 { font-size: 1rem; font-weight: 600; }
+.contribution-featured p { color: var(--foreground); font-size: 0.9375rem; }
+.contribution-metrics { margin-top: 0.5rem; padding-left: 1rem; color: var(--foreground); font-size: 0.875rem; line-height: 1.7; list-style: disc; }
+.contribution-list-compact { gap: 0.625rem 1rem; }
+.contribution-list-compact .contribution { border: 0; padding-left: 0; }
+.contribution-list-compact h5 { font-weight: 400; }
+
+.project-grid { display: grid; gap: 1rem; list-style: none; }
+.project-grid > li { min-width: 0; }
+.project-card { display: flex; height: 100%; min-width: 0; flex-direction: column; gap: 0.875rem; padding: 1.25rem; border: 1px solid var(--border); border-radius: 0.375rem; }
+.project-heading { display: flex; align-items: start; gap: 0.625rem; }
+.project-title { display: flex; min-width: 0; flex: 1; align-items: start; gap: 0.5rem; }
+.project-title > svg { flex-shrink: 0; margin-top: 0.1875rem; color: var(--muted); }
+.project-title h3 { min-width: 0; font-size: 0.9375rem; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; }
+.featured-label { flex-shrink: 0; padding: 0.0625rem 0.4375rem; border: 1px solid var(--border); border-radius: 1rem; color: var(--muted); font-size: 0.6875rem; line-height: 1.5rem; }
+.project-description { flex: 1; color: var(--muted); font-size: 0.875rem; line-height: 1.7; }
+.project-links { display: flex; flex-wrap: wrap; gap: 0 1rem; }
+.project-links a { display: inline-flex; min-height: 2.75rem; align-items: center; gap: 0.375rem; font-size: 0.8125rem; }
+.project-title a, .project-links a, .contact-links a, .footer-inner a { color: var(--accent); text-decoration: none; }
+.project-title a:hover, .project-links a:hover, .contact-links a:hover, .footer-inner a:hover { color: var(--accent-hover); text-decoration: underline; text-underline-offset: 3px; }
+
+.compact-list { list-style: none; }
+.compact-list > li { display: grid; grid-template-columns: 1.125rem minmax(0, 1fr); align-items: start; gap: 0.875rem; padding-block: 0.75rem; }
+.compact-list > li + li { margin-top: 0.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+.compact-list > li > svg { margin-top: 0.25rem; color: var(--muted); }
+.compact-list h3 { font-size: 1rem; font-weight: 600; line-height: 1.5; }
+.compact-list p { margin-top: 0.5rem; font-size: 0.9375rem; line-height: 1.7; }
+.compact-list .entry-meta { margin-top: 0.25rem; color: var(--muted); font-size: 0.875rem; }
+.entry-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.5rem 1rem; }
+.entry-heading > time { color: var(--muted); font-size: 0.8125rem; }
+.compact-list .education-details { display: flex; flex-wrap: wrap; gap: 0.375rem 1.25rem; color: var(--muted); font-size: 0.875rem; }
+.contact-description { margin-bottom: 1rem; color: var(--muted); font-size: 0.9375rem; line-height: 1.7; }
+.contact-links { display: flex; flex-wrap: wrap; gap: 0.625rem; list-style: none; }
+.contact-links a { display: inline-flex; min-height: 2.75rem; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 0.375rem; font-size: 0.875rem; }
+.contact-links a:hover { background: var(--surface); }
+.site-footer { border-top: 1px solid var(--border); }
+.footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; padding-block: 1rem; color: var(--muted); font-size: 0.75rem; }
+.footer-inner p { display: inline-flex; align-items: center; gap: 0.5rem; }
+.footer-inner a { display: inline-flex; min-height: 2.75rem; align-items: center; }
+
+@media (min-width: 640px) {
+  .project-grid, .contribution-list-compact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 
 @media (max-width: 479px) {
   .page-container { padding-inline: 1rem; }

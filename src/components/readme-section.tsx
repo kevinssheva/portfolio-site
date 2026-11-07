@@ -2,6 +2,7 @@ import { site } from "@/content/site";
 import type { Technology } from "@/lib/content";
 import { Icon } from "./icon";
 import { MarkdownContent } from "./markdown-content";
+import { TechnologyList } from "./technology-list";
 
 export function ReadmeSection({ overview, technologies }: { overview: string; technologies: Technology[] }) {
   return (
@@ -12,9 +13,7 @@ export function ReadmeSection({ overview, technologies }: { overview: string; te
         {technologies.length > 0 && (
           <div className="readme-technologies">
             <h3>{site.technologiesHeading}</h3>
-            <ul className="technology-list">
-              {technologies.map((technology) => <li key={technology.id}>{technology.label}</li>)}
-            </ul>
+            <TechnologyList technologies={technologies} />
           </div>
         )}
       </div>
