@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "next typegen && tsc --noEmit",
-    "check": "npm run lint && npm run typecheck && npm run build"
+    "test": "node --import tsx --test src/lib/content/*.test.ts",
+    "content:validate": "node --import tsx scripts/validate-content.ts",
+    "check": "npm run lint && npm run typecheck && npm test && npm run content:validate && npm run build"
   },
   "engines": {
     "node": ">=20.9.0"
@@ -16,7 +18,9 @@
   "dependencies": {
     "next": "16.3.4",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "yaml": "2.9.0",
+    "zod": "4.5.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.3.3",
@@ -26,6 +30,7 @@
     "eslint": "9.39.5",
     "eslint-config-next": "16.3.4",
     "tailwindcss": "4.3.3",
+    "tsx": "4.23.15",
     "typescript": "5.9.3"
   }
 }

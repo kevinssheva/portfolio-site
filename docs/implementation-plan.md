@@ -21,7 +21,7 @@ Use only supplied facts. Keep provisional metrics unpublished until confirmed; k
 - [x] Establish Server Component layout, light theme tokens, system typography, focus styling, and skip navigation.
 - [x] Add a minimal homepage with editable introductory content.
 - [x] Add setup documentation and Git ignore rules.
-- [ ] Initialize Git and commit the foundation (blocked by workspace permissions).
+- [x] Initialize Git and commit the foundation (completed locally by the user; origin configured).
 - [x] Verify lint, typecheck, production build, and static prerendering.
 - [ ] Verify development startup and live preview (blocked by local port permissions).
 - [x] Report results and pause for review before Phase 2.
@@ -37,13 +37,30 @@ Acceptance: the foundation runs locally; all available checks pass; any environm
 - `npm run dev -- --hostname 127.0.0.1` could not bind port 3000 (`EPERM`), so no live browser preview was verified.
 - `git init -b feat/portfolio-foundation` could not create `.git` (`Operation not permitted`). No Git repository, commit, remote, or deployment was created.
 - Verification ran on Node.js 25.2.0 and npm 11.6.2. `.nvmrc` selects Node.js 24 LTS for normal development; that runtime was not available for verification here.
-- Phase 2 has not started. Resume only after the user's phase review.
+- At this handoff, Phase 2 had not started. It was subsequently authorized by the user.
 
 ## Phase 2 — Content architecture
 
 Define Zod schemas with inferred types. Create all initial content files. Load and validate Markdown/frontmatter on the server, filter publication status, sort deterministically, validate referenced tags and local assets, and report errors with source paths. Add tests for invalid data, dates, optional metadata, ordering, drafts, and discovering a newly added project file. Begin CONTENT_GUIDE.md.
 
 Acceptance: content changes require no component changes; drafts are excluded from public output; missing optional fields are safe; meaningful content tests pass.
+
+### Phase 2 checkpoint — 2026-11-07
+
+- [x] Add Zod schemas with inferred TypeScript types, required fields, strict metadata keys, calendar-month dates, publication status, order, categories, optional URLs, local assets, unique IDs/slugs, and technology/current-employer references.
+- [x] Add all supplied structured content and Markdown files; omit unavailable contact links/assets and keep provisional metrics and Async Event Processor in draft.
+- [x] Load projects automatically from individual Markdown files, normalize line endings, parse YAML metadata, validate every entry, filter nested publication status, and sort by order then ID/slug.
+- [x] Add a server-only rendering entry point with request-scoped caching, a development-only draft preview flag, and a standalone content validation command.
+- [x] Connect the foundation introduction and metadata to validated profile/current-experience data, with no Client Component or request-time service.
+- [x] Write CONTENT_GUIDE.md covering file locations, profile/experience/groups/contributions, projects, drafts, awards, assets/socials, future notes, preview, and deployment updates.
+- [x] Run 15 focused tests using Node's built-in runner and real temporary files; cover discovery, order, malformed metadata, optional values, duplicate identities, dates, references, assets, recursive filtering, and production preview rejection.
+- [x] Pass `npm run check`: lint, strict type checking, tests, content validation, and a production build. Public content validation reports two employers, one project, one recognition, and one education entry. The homepage remains statically prerendered.
+- [x] Verify content-derived metadata in generated HTML and no draft metric/project text in public HTML or client JavaScript.
+- [x] Obtain an independent read-only review: no actionable findings.
+
+Implementation decisions: use the dependency-free `yaml` package with a small reader for the two metadata delimiter lines instead of gray-matter, whose legacy YAML dependency could not be fully installed from the offline cache. Keep Markdown rendering dependencies for Phase 3, where they are first used. Use `tsx` with Node's test runner rather than add a test framework. Reject invalid drafts rather than silently skip them. Draft preview is limited to development, and hidden entries remain hidden in preview.
+
+Work is on `feat/content-architecture`. The user will commit and push; no Phase 2 commit or push has been made by the agent. Phase 3 remains unstarted pending review. Content is fully loaded and validated now; the later UI phases will render the remaining sections.
 
 ## Phase 3 — GitHub-inspired shell
 

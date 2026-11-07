@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { site } from "@/content/site";
+import { getPortfolio } from "@/lib/content";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: site.title,
-  description: site.description,
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { profile, currentExperience } = await getPortfolio();
+  return {
+    title: `${profile.name} | ${currentExperience.role}`,
+    description: profile.bio,
+    robots: { index: false, follow: false },
+  };
+}
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
