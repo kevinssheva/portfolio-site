@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "next typegen && tsc --noEmit",
-    "test": "node --import tsx --test src/lib/content/*.test.ts src/lib/*.test.ts src/components/*.test.tsx",
+    "test": "node --import tsx --test src/lib/content/*.test.ts src/lib/navigation/*.test.ts src/lib/*.test.ts src/components/*.test.tsx",
     "content:validate": "node --import tsx scripts/validate-content.ts",
     "check": "npm run lint && npm run typecheck && npm test && npm run content:validate && npm run build"
   },

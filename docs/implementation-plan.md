@@ -103,13 +103,30 @@ Acceptance: all supplied content renders with the agreed hierarchy; absent URLs 
 - [x] Obtain an independent read-only review: no actionable findings.
 - [ ] Confirm live desktop/mobile visuals, keyboard interaction, overflow, and scrolling locally; existing preview/browser restrictions still apply.
 
-All professional and personal content remains file-based. Provisional metrics and Async Event Processor stay draft. Email, LinkedIn, avatar, and resume have not been invented. Phase 5 scrollspy has not started. Changes remain uncommitted on `feat/content-architecture` for the user to review, commit, and push.
+All professional and personal content remains file-based. Provisional metrics and Async Event Processor stay draft. Email, LinkedIn, avatar, and resume have not been invented. The user committed Phase 4 and authorized Phase 5 on the same branch; commits and pushes remain with the user.
 
 ## Phase 5 — Navigation and polish
 
 Implement scrollspy in a small Client Component with native anchors, hash/history handling, measured sticky offsets, stable boundary selection, and no active tab for Education/Contact. Refine responsiveness, focus states, and overflow.
 
 Acceptance: browser checks cover initial hashes, clicks, fast scrolls, both directions, history navigation, secondary sections, desktop stickiness, short viewports, mobile navigation, and horizontal overflow.
+
+### Phase 5 checkpoint — 2026-11-07
+
+- [x] Hydrate only SectionNavigation. Keep app/page.tsx and all portfolio content as Server Components with no client-side content fetch.
+- [x] Track actual section positions with a passive scroll listener and one pending requestAnimationFrame. Measure the navigation height and shared CSS anchor offset, observe layout changes, and recalculate on resize/load/hash/history/pageshow events.
+- [x] Add four-pixel boundary hysteresis, direct selection on fast jumps, native-anchor intent for exact-boundary and bottom-clamped headings, and distinct tracking of Education/Contact without primary active states.
+- [x] Add aria-current only to the current primary link and horizontal-only active-tab reveal without moving document scroll or keyboard focus. Retain native hash highlighting before hydration and without JavaScript. Use no smooth scrolling or animation.
+- [x] Keep native anchor URLs/history. Clean up event listeners, observers, pending frames, and the measured CSS variable on unmount.
+- [x] Obtain independent review. Fix its history-cache finding: persisted pageshow preserves existing/dismissed anchor intent, including follow-up popstate in that restoration batch. The regression test failed with the stale Recognition selection before the fix and passes afterward.
+- [x] Pass `npm run check`: lint, strict TypeScript, all 31 tests (12 navigation tests), content validation, and production build. The homepage remains statically prerendered.
+- [x] Inspect generated output: all native anchor targets remain valid, no draft content leaks, and SectionNavigation is the only local TSX client reference. Portfolio data is absent from client JavaScript.
+- [x] Write docs/browser-checklist.md covering all required viewport, scrolling, hash/history, cache, keyboard, mobile, overflow, no-JavaScript, and reduced-motion checks.
+- [ ] Execute live browser/viewport tests and record results locally. No browser interaction pass is claimed.
+
+Verification deviation: an automated browser suite was planned, but this environment cannot host the preview or access the browser host, and neither a browser runner nor browser binaries are installed or available in the package cache. Keep the current dependency set instead of committing an unavailable, unverified harness. Runnable pure selection tests and the explicit local browser checklist are provided. Full live-browser acceptance remains pending for the release phase.
+
+Phase 6 has not started. Phase 5 changes remain uncommitted for the user to review, commit, and push on `feat/content-architecture`.
 
 ## Phase 6 — Release preparation
 
@@ -119,4 +136,4 @@ Acceptance: the complete portfolio meets the user's acceptance checklist, and co
 
 ## Verification strategy
 
-Use lint, strict TypeScript, Next.js route generation, and a production build for the foundation. Add focused automated tests for content behavior in Phase 2 and a small browser suite for layout/navigation behavior in Phase 5. Avoid snapshot tests for trivial static markup. Record actual results rather than assuming that successful compilation proves browser behavior.
+Use lint, strict TypeScript, Next.js route generation, and a production build for the foundation. Focused automated tests cover content, rendering with optional metadata, dates, and navigation selection. Live layout/navigation verification follows docs/browser-checklist.md until a usable browser runner/preview environment is available. Avoid snapshot tests for trivial static markup. Record actual results rather than assuming that successful compilation or pure logic tests prove browser behavior.

@@ -115,15 +115,15 @@ body {
   position: sticky;
   top: 0;
   z-index: 30;
-  height: var(--navigation-height);
+  min-height: 3.5rem;
   border-bottom: 1px solid var(--border);
   background: var(--background);
 }
 
-.navigation-inner { height: 100%; }
+.navigation-inner { min-width: 0; }
 .section-links {
   display: flex;
-  height: 100%;
+  min-height: calc(3.5rem - 1px);
   align-items: stretch;
   gap: 0.375rem;
   margin: 0;
@@ -160,14 +160,20 @@ body {
   content: "";
 }
 
-/* Native hash highlighting works without JavaScript; viewport scrollspy is Phase 5. */
-body:not(:has(.portfolio-section:target)) .section-link[href="#overview"]::after,
-body:has(#overview:target) .section-link[href="#overview"]::after,
-body:has(#experience:target) .section-link[href="#experience"]::after,
-body:has(#projects:target) .section-link[href="#projects"]::after,
-body:has(#recognition:target) .section-link[href="#recognition"]::after {
+/* Hash highlighting remains available before hydration and without JavaScript. */
+body:not(:has(.portfolio-section:target)) .section-navigation:not([data-scrollspy-ready]) .section-link[href="#overview"]::after,
+body:has(#overview:target) .section-navigation:not([data-scrollspy-ready]) .section-link[href="#overview"]::after,
+body:has(#experience:target) .section-navigation:not([data-scrollspy-ready]) .section-link[href="#experience"]::after,
+body:has(#projects:target) .section-navigation:not([data-scrollspy-ready]) .section-link[href="#projects"]::after,
+body:has(#recognition:target) .section-navigation:not([data-scrollspy-ready]) .section-link[href="#recognition"]::after {
   background: var(--tab-active);
 }
+
+.section-navigation[data-scrollspy-ready] .section-link[aria-current="location"]::after {
+  background: var(--tab-active);
+}
+
+.section-link[aria-current="location"] { font-weight: 600; }
 
 .navigation-count {
   min-width: 1.25rem;
