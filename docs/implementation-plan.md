@@ -126,13 +126,30 @@ Acceptance: browser checks cover initial hashes, clicks, fast scrolls, both dire
 
 Verification deviation: an automated browser suite was planned, but this environment cannot host the preview or access the browser host, and neither a browser runner nor browser binaries are installed or available in the package cache. Keep the current dependency set instead of committing an unavailable, unverified harness. Runnable pure selection tests and the explicit local browser checklist are provided. Full live-browser acceptance remains pending for the release phase.
 
-Phase 6 has not started. Phase 5 changes remain uncommitted for the user to review, commit, and push on `feat/content-architecture`.
+The user committed Phase 5 and authorized Phase 6 on the same branch, explicitly requesting command-line verification only and no Safari/browser testing.
 
 ## Phase 6 — Release preparation
 
 Complete metadata, Open Graph, robots, and domain-dependent canonical/sitemap configuration without inventing a domain. Run all checks and production build, inspect prerendering and client JavaScript, verify accessibility and links, exercise a content-only update, and finish README.md and CONTENT_GUIDE.md with Vercel deployment instructions.
 
 Acceptance: the complete portfolio meets the user's acceptance checklist, and content/deployment documentation supports independent maintenance. Publishing requires the actual configured repository and hosting account.
+
+### Phase 6 checkpoint — 2026-11-07
+
+- [x] Add content-derived page/Open Graph metadata, validated optional SITE_URL, canonical URL policy, static favicon, robots.txt, and sitemap.xml without inventing a production domain.
+- [x] Keep unconfigured and preview/development builds non-indexable. Only configured Vercel Production advertises a homepage sitemap entry. Leave the real domain unset for the user to configure.
+- [x] Add five SEO tests and a reusable command-line build verifier for generated metadata, favicon, sitemap policy, prerendering, structure/link targets, and isolated client entry points.
+- [x] Reproduce a clean lockfile install, including development build tools when NODE_ENV=production. Explicitly run unit tests in test mode while retaining the separate real-production draft rejection test.
+- [x] Pass all 36 tests, lint, strict TypeScript, content validation, production build, and generated-output checks. The homepage, favicon, robots file, and sitemap remain static.
+- [x] Verify actual production and preview build variants with a reserved example.com test fixture, including CONTENT_PREVIEW_DRAFTS=true during production-mode builds. Production is indexable; preview is noindex. Test values are transient command environments, not project configuration.
+- [x] Restore the final build to the unconfigured-domain/noindex policy and run the complete check command.
+- [x] Finish README.md, CONTENT_GUIDE.md, .env.example, and DEPLOYMENT.md with production branch/merge workflow, Vercel settings, domain/indexing setup, command-line verification, content updates, and rollback instructions.
+- [x] Obtain independent read-only review: no actionable findings. An additional deployment-style test caught three preview tests inheriting NODE_ENV=production; the test command was corrected and all 36 then passed under that outer environment. URL normalization in the verifier handles Next's equivalent root URL with/without a trailing slash.
+- [x] Respect command-only verification. No browser, Safari, deployment, commit, push, or merge was performed in this phase. Actual viewport behavior and Core Web Vitals remain unmeasured, as documented.
+
+Commands verified include `npm ci --include=dev --offline`, `NODE_ENV=production npm test`, the full production-environment `npm run check`, production/preview `npm run verify:build` expectations, and the final unconfigured `npm run check`. Verification ran on the available Node.js 25.2.0/npm 11.6.2; Node.js 24 LTS is selected for normal development/Vercel and was not available in this environment.
+
+Implementation and command-line release checks are complete. Changes remain on `feat/content-architecture` for the user to commit/push. Deployment and the actual SITE_URL are user setup steps in DEPLOYMENT.md; no live hosting or domain has been configured by the agent.
 
 ## Verification strategy
 

@@ -6,7 +6,7 @@ These checks are pending local execution. The agent environment cannot host the 
 
 ```sh
 nvm use
-npm ci
+npm ci --include=dev
 npm run check
 npm run dev
 ```

@@ -15,6 +15,8 @@ Portfolio facts live in `src/content/`, separate from React components. Edit tho
 | Education | `src/content/education.ts` |
 | Shared interface copy | `src/content/site.ts` |
 | Validation schemas and inferred types | `src/lib/content/schemas.ts` |
+| Canonical production origin | `SITE_URL` in Vercel Production; see `DEPLOYMENT.md` |
+| Favicon artwork | `src/app/icon.svg` |
 
 TypeScript files use `satisfies` with their schema's input type. Your editor checks their structure; runtime validation checks constraints such as valid dates, references, URLs, and publication status. Unknown metadata fields are rejected to catch misspellings.
 
@@ -137,7 +139,7 @@ The current loader uses the dependency-free `yaml` package to parse YAML metadat
 
 All entries are validated, including drafts and hidden entries, so publishing them later does not reveal latent errors. Duplicate IDs/slugs, invalid fields, or unknown technologies fail validation. Hidden content stays hidden in preview too.
 
-To preview drafts locally, copy `.env.example` to `.env.local`, set `CONTENT_PREVIEW_DRAFTS=true`, and restart `npm run dev`. This affects content returned to development rendering; sections appear as their UI phases are implemented. Production always excludes drafts even if this variable is accidentally set there. `npm run content:validate` reports the public collection.
+To preview drafts locally, copy `.env.example` to `.env.local`, set `CONTENT_PREVIEW_DRAFTS=true`, and restart `npm run dev`. This includes draft projects and metrics in local development rendering. Production always excludes drafts even if this variable is accidentally set there. `npm run content:validate` reports the public collection.
 
 Draft filtering controls site output, not repository visibility. Source content is still visible to anyone who can read the repository. Keep confidential information out of committed files, including drafts.
 
@@ -175,7 +177,7 @@ Project bodies are already loaded for future detail pages. Those routes should u
 
 ```sh
 nvm use
-npm ci
+npm ci --include=dev
 npm run dev
 ```
 
@@ -187,10 +189,12 @@ npm test
 npm run check
 ```
 
-`content:validate` reports filenames and field paths for content errors. `test` checks validation, publication filtering, ordering, assets, and file discovery using real temporary files. `check` additionally runs lint, strict TypeScript, and the production build. A normal production build also loads and validates all content, even sections not yet visible on the foundation page.
+`content:validate` reports filenames and field paths for content errors. `test` checks validation, publication filtering, ordering, assets, file discovery/rendering, optional metadata, dates, navigation selection, and SEO policies. `check` additionally runs lint, strict TypeScript, the production build, and generated-output verification. A normal production build loads and validates all content, including draft or hidden entries. `npm run verify:build` can inspect an existing build without opening a browser.
 
 ## Commit and deploy content updates
 
 Review your changes with `git diff`, run `npm run check`, and commit only after it passes. Add new content files to Git as well as editing existing ones. Push your branch to GitHub; once Vercel is connected, pull requests can generate preview deployments and updates to the configured production branch will trigger production builds.
 
-Production pages use build-time content. A local save or Git commit alone does not update the live site; the new deployment must complete. Vercel is not configured yet. Production domain, canonical URLs, sitemap, and final indexing settings are completed in the release phase.
+Production pages use build-time content. A local save or Git commit alone does not update the live site; the new deployment must complete. Follow `DEPLOYMENT.md` for the Vercel production branch, build settings, actual domain, and command-line checks. No deployment has been created by the agent.
+
+Page and Open Graph titles use your name and current role; descriptions use your bio. Changing those content files updates metadata automatically. Leave `SITE_URL` blank until the real production HTTPS origin is known, then configure it in Vercel Production and redeploy. Only configured Vercel Production builds become indexable and include a homepage sitemap entry. Canonical URLs, Open Graph URL, and sitemap references share that origin; preview builds remain non-indexable. No component edit is needed to configure the domain.
