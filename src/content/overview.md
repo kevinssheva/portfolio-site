@@ -1,5 +1,9 @@
-## Hey, I'm Kevin 👋
+## Hey, I'm Kevin! 👋
 
-I build backend systems and work on infrastructure and observability for Gojek's transport platform. My experience includes Kubernetes migrations, payment gateway development, distributed tracing, and backend product engineering.
+I'm a Software Engineer II at Gojek, currently working on backend development for the Transport team.
 
-I'm particularly interested in distributed systems, networking, database internals, and performance engineering.
+I've always enjoyed learning about technology and understanding how things work. Lately, I've been spending more of my free time exploring the fundamentals behind the systems we use every day, partly so I can tell when AI is confidently wrong 😄.
+
+Outside of software engineering, I've also been getting interested in economics and learning more about how the world works.
+
+I'm currently exploring opportunities to work abroad, meet new people, and experience engineering in a different environment.

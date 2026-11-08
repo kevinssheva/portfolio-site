@@ -20,11 +20,11 @@ Open <http://localhost:3000>. Keep `CONTENT_PREVIEW_DRAFTS` unset or false for p
 - [ ] Scroll slowly across section boundaries in both directions. The underline remains stable around tiny boundary movements, then switches after crossing the small tolerance.
 - [ ] Scroll or drag rapidly between far-apart positions. The current section becomes active without stepping through skipped sections.
 - [ ] Click all four tabs, including clicking the same hash again after manually scrolling away. Native scrolling reaches the intended section, the URL hash updates, and the matching tab activates.
-- [ ] Near the document bottom, click Recognition. Its heading may not align exactly at the activation line because the browser cannot scroll farther; Recognition should still activate while its heading is visible. Resume manual scrolling: Education/Contact and the footer should have no primary tab active.
-- [ ] Visit fresh URLs ending in `#experience`, `#projects`, and `#recognition`. The correct heading is visible below the sticky bar and the intended tab activates. Visit `#education` or `#contact`: no primary tab activates.
+- [ ] Near the document bottom, click Recognition. Its heading may not align exactly at the activation line because the browser cannot scroll farther; Recognition should still activate while its heading is visible. Resume manual scrolling: Recognition stays active through Education, Contact, and the footer.
+- [ ] Visit fresh URLs ending in `#experience`, `#projects`, and `#recognition`. The correct heading is visible below the sticky bar and the intended tab activates. Visit `#education` or `#contact`: Recognition activates.
 - [ ] Click Experience, Projects, and Recognition, then use Back and Forward. Restored anchor positions and visible content agree with the active state. Manual scrolling alone must not rewrite the hash or create browser history entries.
-- [ ] Check cached Back navigation when the browser uses BFCache: click Recognition, manually scroll to dismiss that anchor and reach the secondary sections, follow the GitHub link, then return with Back. The restored bottom reading position should retain no active primary tab rather than revive the old Recognition hash.
-- [ ] Use Home, End, Page Up/Down, and arrow keys. Selection follows normal document scrolling, and End clears primary selection when it reaches the final secondary sections.
+- [ ] Check cached Back navigation when the browser uses BFCache: click Experience, manually scroll to the secondary sections, follow the GitHub link, then return with Back. The restored bottom reading position should highlight Recognition despite the old Experience hash.
+- [ ] Use Home, End, Page Up/Down, and arrow keys. Selection follows normal document scrolling, and End highlights Recognition at the final secondary sections.
 
 ## Mobile, layout, and accessibility
 
@@ -33,7 +33,7 @@ Open <http://localhost:3000>. Keep `CONTENT_PREVIEW_DRAFTS` unset or false for p
 - [ ] At 1280×900, navigation and profile remain sticky during document scrolling. At 1280×720, the profile scrolls normally and all its links stay reachable. There is no separate vertically scrolling content column.
 - [ ] Resize the viewport and increase text size/zoom. Sticky offsets follow the measured navigation height, headings are not obscured, and content still wraps.
 - [ ] Use Tab and Shift+Tab to reach the skip link, navigation, profile links, project links when configured, Contact, and footer. Focus is visible; Enter activates ordinary links. Scrolling does not move keyboard focus.
-- [ ] With a screen reader or inspector, only the active primary link has `aria-current="location"`; Education/Contact leave all primary links without it. Navigation remains a list of section links, not an ARIA tab widget.
+- [ ] With a screen reader or inspector, only the active primary link has `aria-current="location"`; Education/Contact keep it on Recognition. Navigation remains a list of section links, not an ARIA tab widget.
 - [ ] Disable JavaScript and reload. All content, links, and anchor scrolling still work; only automatic scrollspy is absent. Native hash underlining remains as a visual fallback.
 - [ ] Enable reduced motion. There should be no animated backgrounds, forced smooth scrolling, or animated active indicator.
 - [ ] Confirm missing email, LinkedIn, avatar, resume, repository, and demo fields create no broken links or placeholder buttons. Provisional metrics and Async Event Processor remain absent from public output.

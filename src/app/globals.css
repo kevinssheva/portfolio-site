@@ -165,7 +165,7 @@ body:not(:has(.portfolio-section:target)) .section-navigation:not([data-scrollsp
 body:has(#overview:target) .section-navigation:not([data-scrollspy-ready]) .section-link[href="#overview"]::after,
 body:has(#experience:target) .section-navigation:not([data-scrollspy-ready]) .section-link[href="#experience"]::after,
 body:has(#projects:target) .section-navigation:not([data-scrollspy-ready]) .section-link[href="#projects"]::after,
-body:has(#recognition:target) .section-navigation:not([data-scrollspy-ready]) .section-link[href="#recognition"]::after {
+body:has(#recognition:target, #education:target, #contact:target) .section-navigation:not([data-scrollspy-ready]) .section-link[href="#recognition"]::after {
   background: var(--tab-active);
 }
 

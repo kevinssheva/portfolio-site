@@ -2,6 +2,8 @@
 
 Approved in conversation on 2026-11-07. Execute one phase at a time and pause for review at each boundary.
 
+Scrollspy policy update (2026-11-08): Recognition now stays highlighted through Education, Contact, and the footer, superseding the original secondary-section clearing behavior recorded below. Secondary sections remain individually tracked internally.
+
 ## Architecture
 
 Build one continuous GitHub-inspired homepage using Next.js App Router, React Server Components, strict TypeScript, Tailwind CSS, and static prerendering on Vercel. Use system fonts and CSS theme variables. Do not introduce a backend, CMS, database, authentication, or client-side fetching for portfolio content.

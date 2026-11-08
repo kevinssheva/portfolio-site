@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { pageShowAnchor, selectSection } from "./select-section";
+import { navigationSectionId, pageShowAnchor, selectSection } from "./select-section";
 
 const viewport = { activationLine: 80, viewportHeight: 900, scrollY: 1000, documentHeight: 5000 };
 const sections = [
@@ -62,9 +62,21 @@ test("an old or offscreen hash cannot override the section now being read", () =
   assert.equal(selectSection(sections, { ...viewport, anchorId: "unknown" }), "experience");
 });
 
-test("Education and Contact remain distinct tracked sections so neither maps to a primary tab", () => {
+test("Education and Contact remain distinct tracked sections", () => {
   assert.equal(selectSection(sections.map((section) => ({ ...section, top: section.top - 750 })), viewport), "education");
   assert.equal(selectSection(sections.map((section) => ({ ...section, top: section.top - 950 })), viewport), "contact");
+});
+
+test("Recognition stays active through secondary sections and the document bottom", () => {
+  for (const offset of [400, 750, 950]) {
+    const selected = selectSection(sections.map((section) => ({ ...section, top: section.top - offset })), viewport);
+    assert.equal(navigationSectionId(selected), "recognition");
+  }
+  assert.equal(navigationSectionId(selectSection(sections, { ...viewport, scrollY: 4100 })), "recognition");
+  assert.equal(navigationSectionId(selectSection(sections, viewport)), "experience");
+  assert.equal(navigationSectionId("overview"), "overview");
+  assert.equal(navigationSectionId("projects"), "projects");
+  assert.equal(navigationSectionId(null), null);
 });
 
 test("the document bottom selects the final section, tolerating fractional scroll positions", () => {

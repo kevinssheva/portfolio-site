@@ -11,6 +11,10 @@ type ViewportPosition = {
 
 const boundaryTolerance = 4;
 
+export function navigationSectionId(sectionId: string | null): string | null {
+  return sectionId === "education" || sectionId === "contact" ? "recognition" : sectionId;
+}
+
 export function pageShowAnchor(hash: string, currentAnchor: string | null, persisted: boolean): string | null {
   return persisted ? currentAnchor : hash.slice(1) || null;
 }
