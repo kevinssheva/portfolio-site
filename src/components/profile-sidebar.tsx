@@ -12,7 +12,7 @@ export function ProfileSidebar({ profile, currentExperience }: { profile: Profil
       <div className="profile-identity">
         <div className="profile-avatar">
           {profile.avatar ? (
-            <Image src={profile.avatar.src} alt={profile.avatar.alt} width={224} height={224} sizes="(min-width: 1024px) 224px, 88px" />
+            <Image src={profile.avatar.src} alt={profile.avatar.alt} width={224} height={224} sizes="(min-width: 1024px) 224px, 88px" loading="eager" />
           ) : <span aria-hidden="true">{initials}</span>}
         </div>
         <div className="profile-heading">

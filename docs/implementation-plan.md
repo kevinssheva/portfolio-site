@@ -4,6 +4,10 @@ Approved in conversation on 2026-11-07. Execute one phase at a time and pause fo
 
 Scrollspy policy update (2026-11-08): Recognition now stays highlighted through Education, Contact, and the footer, superseding the original secondary-section clearing behavior recorded below. Secondary sections remain individually tracked internally.
 
+Theme update (2026-11-08): Added a small header Client Component for light/dark switching, with light as the default, guarded local-storage persistence, and pre-paint initialization. Both palettes use shared CSS variables; portfolio content remains server-rendered. This extends the original light-only MVP.
+
+Layout update (2026-11-08): Removed the separate branding header at the user's request. The theme toggle now sits beside the sticky section tabs, staying visible while the tabs scroll horizontally on mobile. Profile and Contact retain social links.
+
 ## Architecture
 
 Build one continuous GitHub-inspired homepage using Next.js App Router, React Server Components, strict TypeScript, Tailwind CSS, and static prerendering on Vercel. Use system fonts and CSS theme variables. Do not introduce a backend, CMS, database, authentication, or client-side fetching for portfolio content.

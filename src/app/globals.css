@@ -16,6 +16,18 @@
   --column-gap: 2rem;
 }
 
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #0d1117;
+  --surface: #161b22;
+  --foreground: #e6edf3;
+  --muted: #9da7b3;
+  --border: #3d444d;
+  --accent: #58a6ff;
+  --accent-hover: #79c0ff;
+  --focus: #58a6ff;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
@@ -68,20 +80,7 @@ body {
   padding-inline: 1.5rem;
 }
 
-.site-header {
-  border-bottom: 1px solid var(--border);
-  background: var(--surface);
-}
-
-.header-inner {
-  display: flex;
-  min-height: 4rem;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.site-brand, .header-link, .resume-link {
+.resume-link {
   display: inline-flex;
   align-items: center;
   gap: 0.625rem;
@@ -89,27 +88,26 @@ body {
   text-decoration: none;
 }
 
-.site-brand { min-width: 0; }
-.brand-label, .brand-divider { color: var(--muted); }
-.brand-mark {
-  display: grid;
-  width: 2rem;
-  height: 2rem;
+.theme-toggle {
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
   flex-shrink: 0;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--foreground);
-  color: var(--background);
-}
-
-.header-link {
-  min-height: 2.75rem;
-  flex-shrink: 0;
-  padding-inline: 0.625rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
   border-radius: 0.375rem;
+  background: var(--surface);
+  color: var(--foreground);
+  cursor: pointer;
 }
 
-.header-link:hover { background: var(--border); }
+:root[data-theme] .theme-toggle { display: inline-flex; }
+.theme-toggle:hover { background: var(--border); }
+.theme-when-light { display: inline-flex; }
+.theme-when-dark { display: none; }
+:root[data-theme="dark"] .theme-when-light { display: none; }
+:root[data-theme="dark"] .theme-when-dark { display: inline-flex; }
 
 .section-navigation {
   position: sticky;
@@ -120,9 +118,11 @@ body {
   background: var(--background);
 }
 
-.navigation-inner { min-width: 0; }
+.navigation-inner { display: flex; min-width: 0; align-items: center; gap: 0.5rem; }
 .section-links {
   display: flex;
+  flex: 1;
+  min-width: 0;
   min-height: calc(3.5rem - 1px);
   align-items: stretch;
   gap: 0.375rem;
@@ -329,8 +329,6 @@ body:has(#recognition:target, #education:target, #contact:target) .section-navig
 
 @media (max-width: 479px) {
   .page-container { padding-inline: 1rem; }
-  .brand-divider, .brand-label { display: none; }
-  .site-brand { gap: 0.5rem; font-size: 0.8125rem; }
   .profile-identity { gap: 0.875rem; }
   .profile-name { font-size: 1.25rem; }
   .profile-role, .profile-company { font-size: 0.8125rem; }

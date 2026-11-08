@@ -6,7 +6,7 @@ GitHub repository: [kevinssheva/portfolio-site](https://github.com/kevinssheva/p
 
 ## Current stage
 
-The MVP implementation includes all portfolio sections, responsive GitHub-inspired styling, sticky navigation/profile, scrollspy, validated file-based content, and SEO metadata. Phase 6 adds release checks and Vercel instructions. All portfolio content stays in Server Components; only section navigation hydrates as a Client Component. See [the implementation plan](docs/implementation-plan.md).
+The MVP implementation includes all portfolio sections, responsive GitHub-inspired styling, sticky navigation/profile, scrollspy, light/dark themes, validated file-based content, and SEO metadata. Phase 6 adds release checks and Vercel instructions. All portfolio content stays in Server Components; only section navigation and the theme toggle hydrate as Client Components. See [the implementation plan](docs/implementation-plan.md).
 
 ## Local setup
 
@@ -40,17 +40,24 @@ Behavior tests cover real content loading, validation, sorting, drafts, date for
 ## Structure
 
 - `src/app/`: Server Component layout and homepage, plus global design tokens.
-- `src/components/`: Server-rendered portfolio content, shared technology/contact rendering, and the small section-navigation Client Component.
+- `src/components/`: Server-rendered portfolio content, shared technology/contact rendering, and the small navigation/theme Client Components.
 - `src/content/`: Typed structured data, Markdown overview, and personal project files.
 - `src/lib/content/`: Zod schemas, validation, filtering, sorting, and a server-only entry point for rendering.
 - `src/lib/format.ts`: Native month/year formatting in English with UTC dates.
 - `src/lib/navigation/`: Browser-free section selection tests and the scrollspy hook with passive, animation-frame-limited updates.
 - `src/lib/seo.ts`: Shared metadata, canonical origin, indexing, robots, and sitemap policy.
+- `src/lib/theme.ts`: Early saved-theme initialization and the browser toggle with guarded storage access.
 - `scripts/validate-content.ts`: Standalone content checks without starting Next.js.
 - `scripts/verify-build.ts`: Command-line verification of the latest production build.
 - `docs/implementation-plan.md`: Approved architecture, phase boundaries, and progress.
 
 Next.js generates `next-env.d.ts` and `.next/`; do not edit or commit those files. Commit `package-lock.json` whenever dependencies change, and use `npm ci` to reproduce the dependency tree.
+
+## Color theme
+
+The sun/moon button beside the sticky section tabs switches between light and dark mode. There is no separate branding header; identity and social links live in the profile. New visitors start in light mode, regardless of their operating system theme. The choice is saved under `portfolio-theme` in browser local storage and restored by a small inline script in the document head before content paints. If storage is blocked, switching still works for the current page. Without JavaScript, the site stays light and hides the toggle.
+
+Both palettes live in `src/app/globals.css`: light tokens in `:root`, dark overrides in `:root[data-theme="dark"]`. Interface labels live in `src/content/site.ts`. The toggle derives its icon and accessible action label from CSS, avoiding a separate React theme state or provider. The avatar image is unchanged. Theme tests execute the initialization script and toggle with controlled browser storage; actual visual paint timing and keyboard/browser behavior remain manual checks.
 
 ## Rendering and deployment
 

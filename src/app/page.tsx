@@ -1,5 +1,4 @@
 import { getPortfolio } from "@/lib/content";
-import { SiteHeader } from "@/components/site-header";
 import { SectionNavigation } from "@/components/section-navigation";
 import { ProfileSidebar } from "@/components/profile-sidebar";
 import { ReadmeSection } from "@/components/readme-section";
@@ -15,7 +14,6 @@ export default async function Home() {
   const selectedTechnologies = profile.technologyIds.map((id) => technologies.find((technology) => technology.id === id)!);
   return (
     <>
-      <SiteHeader profile={profile} />
       <SectionNavigation projectCount={projects.length} />
       <div className="page-container portfolio-layout">
         <ProfileSidebar profile={profile} currentExperience={currentExperience} />

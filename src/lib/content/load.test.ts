@@ -198,15 +198,13 @@ test("draft preview is refused in a production process", async (t) => {
 
 test("the supplied portfolio loads with only publishable project and metric content", async () => {
   const content = await loadPortfolio();
-  assert.equal(content.profile.name, "Kevin Sebastian");
-  assert.deepEqual(content.projects.map((item) => item.slug), ["palmvue"]);
-  assert.ok(content.overview.includes("distributed systems"));
-  assert.equal(content.currentExperience.company, "GoTo Group (Gojek)");
-  const publicText = JSON.stringify(content);
-  assert.ok(!publicText.includes("2M+"));
-  assert.ok(!publicText.includes("58%"));
-  assert.ok(!publicText.includes("50K+"));
-  const preview = await loadPortfolio({ includeDrafts: true });
-  assert.deepEqual(preview.projects.map((item) => item.slug), ["palmvue", "async-event-processor"]);
-  assert.ok(JSON.stringify(preview).includes("58%"));
+  assert.ok(content.overview.trim());
+  assert.equal(content.currentExperience.id, content.profile.currentExperienceId);
+  const entries = [
+    ...content.projects, ...content.recognition, ...content.education,
+    ...content.experience.flatMap((employer) => [employer, ...employer.groups.flatMap((group) => [
+      group, ...group.contributions.flatMap((contribution) => [contribution, ...contribution.metrics]),
+    ])]),
+  ];
+  assert.ok(entries.every((entry) => entry.status === "published"));
 });

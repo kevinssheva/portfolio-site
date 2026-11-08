@@ -28,13 +28,16 @@ Open <http://localhost:3000>. Keep `CONTENT_PREVIEW_DRAFTS` unset or false for p
 
 ## Mobile, layout, and accessibility
 
+- [ ] With `portfolio-theme` removed from local storage, reload: light mode is the default even if the operating system uses dark mode. Activate the moon button beside the section tabs by keyboard and mouse; dark mode appears and its action label becomes "Switch to light mode". Switch back and confirm the reverse.
+- [ ] Save dark mode and reload: dark colors should appear without an initial white flash or hydration warning. An invalid saved value falls back to light. With browser storage blocked, switching still works for the current page without errors.
+- [ ] Check text, links, focus rings, Markdown/code, cards, borders, the orange active underline, and the original avatar in both themes. At 320px wide, the toggle stays visible while the tab row scrolls horizontally without document overflow. GitHub remains available in the profile and Contact section.
 - [ ] At 390px and 320px wide, profile content sits above the README and no document-level horizontal scrollbar appears. Only the tab row, code blocks, or wide Markdown tables may scroll horizontally.
 - [ ] Swipe the tab row horizontally. It stays usable without changing the vertical reading position. When scrolling the document changes the active tab, the selected tab becomes visible within the row without a vertical jump.
 - [ ] At 1280×900, navigation and profile remain sticky during document scrolling. At 1280×720, the profile scrolls normally and all its links stay reachable. There is no separate vertically scrolling content column.
 - [ ] Resize the viewport and increase text size/zoom. Sticky offsets follow the measured navigation height, headings are not obscured, and content still wraps.
 - [ ] Use Tab and Shift+Tab to reach the skip link, navigation, profile links, project links when configured, Contact, and footer. Focus is visible; Enter activates ordinary links. Scrolling does not move keyboard focus.
 - [ ] With a screen reader or inspector, only the active primary link has `aria-current="location"`; Education/Contact keep it on Recognition. Navigation remains a list of section links, not an ARIA tab widget.
-- [ ] Disable JavaScript and reload. All content, links, and anchor scrolling still work; only automatic scrollspy is absent. Native hash underlining remains as a visual fallback.
+- [ ] Disable JavaScript and reload. All content, links, and anchor scrolling still work in light mode; the theme toggle is hidden and automatic scrollspy is absent. Native hash underlining remains as a visual fallback.
 - [ ] Enable reduced motion. There should be no animated backgrounds, forced smooth scrolling, or animated active indicator.
 - [ ] Confirm missing email, LinkedIn, avatar, resume, repository, and demo fields create no broken links or placeholder buttons. Provisional metrics and Async Event Processor remain absent from public output.
 

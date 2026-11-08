@@ -1,11 +1,14 @@
 export const site = {
-  brand: "portfolio",
   skipLinkLabel: "Skip to content",
   navigationLabel: "Portfolio sections",
   profileLabel: "Profile",
   profileLinksLabel: "Find me online",
   resumeLabel: "Download resume",
   githubLabel: "GitHub",
+  themeLabels: {
+    dark: "Switch to dark mode",
+    light: "Switch to light mode",
+  },
   linkedinLabel: "LinkedIn",
   emailLabel: "Email",
   readmeFilename: "README.md",

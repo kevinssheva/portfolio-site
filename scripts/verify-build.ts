@@ -46,6 +46,8 @@ try {
   assert.equal(ids.length, new Set(ids).size, "Duplicate HTML IDs");
   assert.equal(tags.filter((tag) => tag.name === "main").length, 1, "Expected one main landmark");
   assert.equal(tags.filter((tag) => tag.name === "h1").length, 1, "Use ## or lower headings in the README");
+  const themeScript = /<script\b[^>]*id="theme-init"[^>]*>[\s\S]*?<\/script>/.exec(html);
+  assert.ok(themeScript && html.indexOf(themeScript[0]) < html.indexOf("<body"), "Theme preference must initialize before body content");
   for (const id of Object.keys(site.sections)) assert.ok(ids.includes(id), `Missing primary section ${id}`);
   for (const tag of tags.filter((tag) => tag.name === "a")) {
     const href = tag.attributes.href;
@@ -64,8 +66,9 @@ try {
   const references = readFileSync(".next/server/app/page_client-reference-manifest.js", "utf8");
   const localClients = new Set(Array.from(references.matchAll(/"([^"]*\/src\/[^\"]+\.tsx?)"/g), (match) => match[1].slice(match[1].lastIndexOf("/src/") + 1)));
   assert.ok(localClients.has("src/components/section-navigation.tsx"), "Missing navigation client reference");
-  for (const file of localClients) assert.ok(["src/components/section-navigation.tsx", "src/lib/navigation/use-scrollspy.ts"].includes(file), `Unexpected client entry: ${file}`);
-  console.log(`Build verified: prerendered content, valid metadata/links/favicon, ${indexable ? "indexable production" : "noindex"} policy, and isolated navigation client entry.`);
+  assert.ok(tags.some((tag) => tag.name === "button" && tag.attributes.class?.split(/\s+/).includes("theme-toggle")), "Missing theme toggle");
+  for (const file of localClients) assert.ok(["src/components/section-navigation.tsx", "src/lib/navigation/use-scrollspy.ts", "src/components/theme-toggle.tsx", "src/lib/theme.ts"].includes(file), `Unexpected client entry: ${file}`);
+  console.log(`Build verified: prerendered content, valid metadata/links/favicon, ${indexable ? "indexable production" : "noindex"} policy, early theme initialization, and isolated navigation/theme client entries.`);
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

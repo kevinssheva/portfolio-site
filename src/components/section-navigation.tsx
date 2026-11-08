@@ -4,6 +4,7 @@ import { site } from "@/content/site";
 import { navigationSectionId } from "@/lib/navigation/select-section";
 import { useScrollspy } from "@/lib/navigation/use-scrollspy";
 import { Icon } from "./icon";
+import { ThemeToggle } from "./theme-toggle";
 
 export function SectionNavigation({ projectCount }: { projectCount: number }) {
   const { navigationRef, sectionId, ready } = useScrollspy();
@@ -22,6 +23,7 @@ export function SectionNavigation({ projectCount }: { projectCount: number }) {
             </li>
           ))}
         </ul>
+        <ThemeToggle />
       </div>
     </nav>
   );

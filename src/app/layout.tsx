@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { site } from "@/content/site";
 import { getPortfolio } from "@/lib/content";
 import { createMetadata, getSeoConfig } from "@/lib/seo";
+import { themeInitializationScript } from "@/lib/theme";
 import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -12,7 +13,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script id="theme-init" dangerouslySetInnerHTML={{ __html: themeInitializationScript }} />
+      </head>
       <body>
         <a className="skip-link" href="#main-content">
           {site.skipLinkLabel}
